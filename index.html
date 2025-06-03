@@ -53,7 +53,7 @@
 
       error.innerText = ''; // Clear previous errors
 
-      const url = `https://videoidqa.qatest.signa.run/gateway/es/secure/${code}?embebed=true`;
+      const iframeURL = \`https://videoidqa.qatest.signa.run/gateway/es/secure/\${code}?embebed=true\`;
       console.log("Cargando iframe con URL:", url);
 
       iframe.src = url;
