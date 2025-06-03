@@ -1,0 +1,65 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Demo VideoID QA</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 1rem;
+    }
+
+    label, input, button {
+      font-size: 1rem;
+      margin-top: 1rem;
+      display: block;
+    }
+
+    iframe {
+      width: 100%;
+      height: 700px;
+      border: 1px solid #ccc;
+      margin-top: 2rem;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Demo Iframe - QA</h1>
+
+  <label for="transactionCode">Código de VideoID:</label>
+  <input type="text" id="transactionCode" placeholder="Ej: ATRJKZUDTJWXJRYGDM" />
+
+  <button id="loadIframe">Cargar Iframe</button>
+
+  <iframe id="videoIdIframe" allow="camera;microphone" style="display:none;" title="VideoID QA"></iframe>
+
+  <script>
+    document.getElementById('loadIframe').addEventListener('click', () => {
+      const code = document.getElementById('transactionCode').value.trim();
+      const iframe = document.getElementById('videoIdIframe');
+
+      if (!code) {
+        alert('Por favor introduce un código de VideoID válido.');
+        return;
+      }
+
+      const iframeURL = \`https://videoidqa.qatest.signa.run/gateway/es/secure/\${code}?embebed=true\`;
+      iframe.src = iframeURL;
+      iframe.style.display = 'block';
+    });
+
+    // Escucha de eventos emitidos por el iframe
+    window.addEventListener('message', event => {
+      if (event.origin.includes("videoidqa.qatest.signa.run")) {
+        console.log('Evento recibido desde el iframe:', event.data);
+      }
+    });
+  </script>
+
+</body>
+</html>
